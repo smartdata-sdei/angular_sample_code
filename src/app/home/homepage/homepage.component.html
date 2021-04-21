@@ -1,0 +1,63 @@
+<!-- Banner -->
+<section class="banner homeBanner">
+  <div class="container">
+    <div class="bannerContent">
+      <div class="image wow fadeInLeft" data-wow-duration="3s"><img src="assets/images/bannerImg.png" alt="" class="img-fluid" /></div>
+      <div class="detail">
+      
+        <h1 class="image wow fadeInRight" data-wow-duration="2s">Park. <br> Book now.</h1>
+
+        <div class="wow fadeInRight autoSugg" data-wow-duration="2s">
+          <div class="searchForm">
+
+            <div class="homeSearch home-page">
+
+              <p-autoComplete [autofocus]="false" [delay]="500" [(ngModel)]="selected" [suggestions]="results" (completeMethod)="checkForPlaces($event)" (onSelect)="gotoSearchPage()" [autoHighlight]="true" [size]="50" placeholder="Search Here (Address, Zone #)" [minLength]="1" class="form-control">
+                <ng-template let-selected pTemplate="item" let-i="index">
+                  <div class="ui-helper-clearfix">
+                    <img *ngIf="results[i].includes('demo')" src="{{constant.locationIcon}}" />
+                    <div *ngIf="results[i].includes('demo')" class="zoneMatch">{{selected}}</div>
+                    <div *ngIf="!results[i].includes('demo')" class="results">{{selected}}</div>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+
+
+            </div>
+
+            <button (click)="searchIconClick()" type="button" class="icon right"><img src="assets/images/search.png" class="" alt="" /></button>
+
+            <button (click)="findParkingNearMe()" type="button" class="compassbtn btn btn-compass"><img src="assets/images/compass.png" alt="" /></button>
+          </div>
+        </div>
+
+        <div *ngIf="!constant.isLogin" class="mb-3">
+          <span class="ortxt wow fadeInRight">or</span>
+          <a (click)="goToSignIn()" class="btn btn-blue btn-lg mr-3 wow fadeInRight" data-wow-duration="2s">Pay Now/Log In</a>
+          <span class="or-txt">or</span>
+          <a (click)="goToSignUp()" class="btn btn-green btn-lg wow fadeInRight" data-wow-duration="2s">Create New Account</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!-- //Banner-->
+
+<p-dialog header="Search Lot by Zone Number" [(visible)]="display" [draggable]="false" [modal]="true" [closable]="false" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000">
+  <form role="form" [formGroup]="searchByZoneNumberForm" (ngSubmit)="onSubmitZoneNumber()">
+    <div class="form-content">
+      <div class="form-group">
+        <input appNumberOnly (keypress)="constant.function.numberOnly($event)" maxlength="6" type="text" formControlName="zone" class="form-control"/>
+        <div *ngIf="submitted && f.zone.errors" class="error">
+          <span *ngIf="submitted && f.zone.errors.required">{{constant.errorMessage.required}}</span>
+          <span *ngIf="submitted && f.zone.errors.pattern">{{constant.errorMessage.pattern}}</span>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    &nbsp; &nbsp;
+    <button type="button" (click)="resetForm()" class="btn btn-default btn-white" disabled>Cancel</button>
+  </form>
+</p-dialog>

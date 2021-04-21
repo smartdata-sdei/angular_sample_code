@@ -1,0 +1,61 @@
+<div *ngIf="isAdmin" class="left-sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed:collapsed}">
+    <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+        <div class="list-group">
+            <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+                <span>{{ 'Dashboard' | translate }}</span>
+            </a>
+
+            <a [routerLink]="['/manager']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-user"></i>&nbsp;
+                <span>{{ 'Hosts' | translate }}</span>
+            </a>
+
+            <a [routerLink]="['/user']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-users"></i>&nbsp;
+                <span>{{ 'Drivers' | translate }}</span>
+            </a>
+
+            <a [routerLink]="['/transaction']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-money"></i>&nbsp;
+                <span>{{ 'Transaction History' | translate }}</span>
+            </a>
+
+            <div class="nested-menu mobile-setting-view">
+                <a class="list-group-item" (click)="addExpandClass('pages')">
+                    <i class="fa fa-gear fa-lg"></i>&nbsp;
+                    <span>{{ 'Settings' | translate }}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'pages'">
+                    <ul class="submenu">
+                        <li>
+                            <a [routerLink]="['/profile']" href="javascript:void(0)">
+                                <i class="fa fa-fw fa-user"></i>&nbsp;
+                                <span>{{ 'Personal Info' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/']" href="javascript:void(0)">
+                                <i class="fa fa-external-link"></i>&nbsp;
+                                <span>{{ 'Switch to Driving' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/']" (click)="logUserOut()" href="javascript:void(0)">
+                                <i class="fa fa-fw fa-power-off"></i>&nbsp;
+                                <span>{{ 'Log Out' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+
+        </div>
+
+        
+    </nav>
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
+        <span>{{ 'Collapse Sidebar' | translate }}</span>
+    </div>
+</div>

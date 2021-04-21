@@ -1,0 +1,100 @@
+<!-- Banner -->
+<section class="banner innerBanner">
+<div class="container">
+  <h1>Sign In</h1>
+</div>
+</section>
+<!-- //Banner-->
+
+<!-- Page Content -->
+<section class="pageContent signin centerPageContent d-flex align-items-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 offset-md-3 offset-sm-3">
+        <div class="checkout-block">
+          <div class="signin-header">
+              <h4>Sign in</h4>
+          </div>
+          <form role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <span class="icon"><img src="assets/images/email.png" width="20" alt=""></span>
+              <input formControlName="email" maxlength="40" type="text" class="form-control" id="email" placeholder="Email" name="email">
+              <div *ngIf="submitted && f.email.errors" class="error">
+                <span *ngIf="submitted && f.email.errors.required">{{constant.errorMessage.required}}</span>
+                <span *ngIf="submitted && f.email.errors.pattern">{{constant.errorMessage.pattern}}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <span class="icon"><img src="assets/images/password.png" width="20" alt=""></span>
+              <input formControlName="password" maxlength="30" type="password" class="form-control" id="pwd" placeholder="Password" name="pswd">
+              <div *ngIf="submitted && f.password.errors" class="error">
+                <span *ngIf="submitted && f.password.errors.required">{{constant.errorMessage.required}}</span>
+                <span *ngIf="submitted && f.password.errors.pattern">{{constant.errorMessage.pattern}}</span>
+              </div>
+            </div>
+            
+            <div class="form-group text-center error">
+              <span>{{loginErrorMessage || ''}}</span>
+            </div>
+
+            <div *ngIf="disableSubmit" class="form-group text-center error">
+              <p-progressSpinner [style]="constant.progressSpinnerStyle" strokeWidth="4" fill="transparent" animationDuration=".9s"></p-progressSpinner>
+            </div>
+
+            <button *ngIf="!disableSubmit" type="submit" class="btn btn-primary btn-block">
+              Sign In
+            </button>
+            <button *ngIf="disableSubmit" type="button" class="btn btn-primary btn-block cursor-not-allowed" disabled>
+              Sign In
+            </button>
+
+            <a *ngIf="!disableSubmit" class="forgot-password">
+              <span (click)="showDialog()" class="pointer blue-link">
+                Forgot Password?
+              </span>
+            </a>
+
+            <a *ngIf="disableSubmit" class="forgot-password cursor-not-allowed" disabled >
+              <span class="pointer blue-link">
+                Forgot Password?
+              </span>
+            </a>
+
+          </form>
+        </div>
+
+        <span *ngIf="!disableSubmit" class="create-account">Not registered? <a [routerLink]="['/signup']">Create an Account.</a></span>
+        <span *ngIf="disableSubmit" class="create-account cursor-not-allowed">Not registered? <a>Create an Account.</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- //Page Content -->
+
+
+<p-dialog header="Reset Password Here" [(visible)]="display" [draggable]="false" [modal]="true" [closable]="false" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000">
+  <form role="form" [formGroup]="resetPasswordForm" (ngSubmit)="onSubmitResetPassword()">
+    <div class="form-content">
+      <div class="form-group">
+        <input maxlength="40" formControlName="email" type="text" ng-model="name" class="form-control input-underline input-lg" id="email" placeholder="Email">
+        <div *ngIf="submitted2 && fp.email.errors" class="error">
+          <span *ngIf="submitted2 && fp.email.errors.required">{{constant.errorMessage.required}}</span>
+          <span *ngIf="submitted2 && fp.email.errors.pattern">{{constant.errorMessage.pattern}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group text-center error">
+      <span>{{forgotPasswordErrorMessage || ''}}</span>
+    </div>
+    <div *ngIf="disableSubmit2" class="form-group text-center error">
+      <p-progressSpinner [style]="constant.progressSpinnerStyle" strokeWidth="4" fill="transparent" animationDuration=".9s"></p-progressSpinner>
+    </div>
+    <div class="form-group text-center error">
+      <button *ngIf="!disableSubmit2" type="submit" class="btn btn-primary">Submit</button>
+      <button *ngIf="disableSubmit2" type="button" class="btn btn-primary cursor-not-allowed" disabled>Submit</button>
+      &nbsp; &nbsp;
+      <button *ngIf="!disableSubmit2" (click)="resetForm()" type="button" class="btn btn-default btn-white">Cancel</button>
+      <button *ngIf="disableSubmit2" type="button" class="btn btn-default btn-white" disabled>Cancel</button>
+    </div>
+  </form>
+</p-dialog>

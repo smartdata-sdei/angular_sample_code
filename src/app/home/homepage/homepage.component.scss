@@ -1,0 +1,19 @@
+// shared css for the login and signup page
+// @import "../../../assets/css/style.css";
+
+.benefitSection .nav-tabs .nav-item .nav-link{line-height: 55px;}
+.banner .bannerContent .detail .btn-border{margin-left: 6px;}
+
+p :hover{
+    background-color: yellow;
+}
+
+.ui-autocomplete .ui-autocomplete-input{
+    border: none !important;
+}
+
+.homeSearch{
+    border: 2px !important;
+}
+
+.banner .detail .btn-lg{position: static;}

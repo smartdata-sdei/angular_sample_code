@@ -1,0 +1,112 @@
+<!-- Banner -->
+<section class="banner innerBanner">
+  <div class="container">
+    <h1>Sign Up</h1>
+  </div>
+</section>
+<!-- //Banner-->
+
+<!-- Page Content -->
+<section class="pageContent signup centerPageContent d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 offset-md-3 offset-sm-3">
+                <div class="checkout-block">
+                    <div class="signup-header">
+                        <h4>Sign up</h4>
+                    </div>
+                    <form role="form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="form-group col-md-6 col-sm-6">
+                                <input appAlphabetOnly (keypress)="constant.function.alphabetOnly($event)" formControlName="firstName" maxlength="20" type="text" class="form-control" placeholder="First Name">
+                                <div *ngIf="submitted && f.firstName.errors" class="error">
+                                    <span *ngIf="submitted && f.firstName.errors.required">{{constant.errorMessage.required}}</span>
+                                    <span *ngIf="submitted && f.firstName.errors.pattern">{{constant.errorMessage.pattern}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6 col-sm-6">
+                                <input appAlphabetOnly (keypress)="constant.function.alphabetOnly($event)" formControlName="lastName" maxlength="20" type="text" class="form-control" placeholder="Last Name">
+                                <div *ngIf="submitted && f.lastName.errors" class="error">
+                                    <span *ngIf="submitted && f.lastName.errors.required">{{constant.errorMessage.required}}</span>
+                                    <span *ngIf="submitted && f.lastName.errors.pattern">{{constant.errorMessage.pattern}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12 col-sm-12">
+                                <input formControlName="email" maxlength="40" type="text" class="form-control" placeholder="Email">
+                                <div *ngIf="submitted && f.email.errors" class="error">
+                                    <span *ngIf="submitted && f.email.errors.required">{{constant.errorMessage.required}}</span>
+                                    <span *ngIf="submitted && f.email.errors.pattern">{{constant.errorMessage.pattern}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12 col-sm-12">
+                                <input formControlName="password" maxlength="30" type="password" class="form-control" placeholder="Password">
+                                <div *ngIf="submitted && f.password.errors" class="error">
+                                    <span *ngIf="submitted && f.password.errors.required">{{constant.errorMessage.required}}</span>
+                                    <span *ngIf="submitted && f.password.errors.pattern">{{constant.errorMessage.passwordPattern}}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group col-md-12 col-sm-12 adminMobile">
+                                <div class="relativePosition">
+                                    <select formControlName="countryCode" class="countryDrop">
+                                        <option *ngFor="let item of constant.countries" value="{{item.dial_code}}">{{item.dial_code}}</option>
+                                    </select>
+                                    <div *ngIf="submitted && f.countryCode.errors" class="error">
+                                        <span *ngIf="submitted && f.countryCode.errors.required">{{constant.errorMessage.selectOne}}</span>
+                                        <span *ngIf="submitted && f.countryCode.errors.pattern">{{constant.errorMessage.pattern}}</span>
+                                    </div>
+                                    <input maxlength="14" mask='(000) 000-0000' formControlName="mobileNumber" type="tel" class="form-control" placeholder="Mobile Number">
+                                </div>
+                                <div *ngIf="submitted && f.mobileNumber.errors" class="error">
+                                    <span *ngIf="submitted && f.mobileNumber.errors.required">{{constant.errorMessage.required}}</span>
+                                    <span *ngIf="submitted && f.mobileNumber.errors.pattern">{{constant.errorMessage.pattern}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12" style="text-align: -webkit-center;">
+                                <re-captcha style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;" formControlName="recaptchaReactive"></re-captcha>
+                                <div *ngIf="isReCaptchaError" class="error">
+                                    <span>{{constant.errorMessage.required}}</span>
+                                </div>
+                                <div *ngIf="submitted && f.recaptchaReactive.errors" class="error">
+                                    <span *ngIf="submitted && f.recaptchaReactive.errors.required">{{constant.errorMessage.required}}</span>
+                                    <span *ngIf="submitted && f.recaptchaReactive.errors.pattern">{{constant.errorMessage.pattern}}</span>
+                                </div>
+                            </div>
+
+                            <div *ngIf="isError" class="form-group col-md-12 col-sm-12 error text-center">
+                                <span>{{errorMessage}}</span>
+                            </div>
+                            
+                            <div *ngIf="disableSubmit" class="form-group col-md-12 col-sm-12 text-center">
+                                <p-progressSpinner [style]="constant.progressSpinnerStyle" strokeWidth="4" fill="transparent" animationDuration=".9s"></p-progressSpinner>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 mt-2">
+                                <button *ngIf="!disableSubmit" type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                                <button *ngIf="disableSubmit" type="button" class="btn btn-primary btn-block cursor-not-allowed" disabled>Sign Up</button>
+                            </div>
+                            
+                            <div class="col-md-12 text-center mt-3">
+                                <span *ngIf="!disableSubmit" (click)="goToPatrollerSignUp()" class="create-account">Want to Sign up as Patroller? <a [routerLink]="['/signup']">Click here.</a></span>
+                                <span *ngIf="disableSubmit" class="create-account">Want to Sign up as Patroller? <a>Click here.</a></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col col-md-12 text-center">
+                        <span *ngIf="!disableSubmit" class="create-account">Already have an account? <a [routerLink]="['/login']">Sign In.</a></span>
+                        <span *ngIf="disableSubmit" class="create-account cursor-not-allowed">Already have an account? <a>Sign In.</a></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- //Content Section -->

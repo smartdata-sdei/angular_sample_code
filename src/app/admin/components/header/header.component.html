@@ -1,0 +1,70 @@
+<header class="siteHeader">
+	<nav class="navbar navbar-expand-md admin-header">
+		<div class="container-fluid align-items-center">
+			
+			<a *ngIf="constant.loggedInUser.role == '1'" (click)="goToHomepage()" class="navbar-brand pointer">
+				<img id="header-logo2" src="assets/images/whiteLogo.png" class="img-fluid" alt="" />
+			</a>
+
+			<a *ngIf="constant.loggedInUser.role != '1'" (click)="goToDashboard()" class="navbar-brand pointer">
+				<img id="header-logo2" src="assets/images/whiteLogo.png" class="img-fluid" alt="" />
+			</a>
+
+			<div class="right-link">
+
+				<div class="nav-item dropdown setting-dropdown" ngbDropdown>
+
+
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="header-settings">
+								Settings
+							</span>
+						</button>
+						<div class="dropdown-menu dropdown-position" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" [routerLink]="['/profile']">
+								<i class="fa fa-fw fa-user"></i> Personal Info
+							</a>
+
+							<a class="dropdown-item" [routerLink]="['/dashboard']">
+								<i class="fa fa-fw fa-dashboard"></i> Dashboard
+							</a>
+
+							<a class="dropdown-item" [routerLink]="['/wnine']">
+								<i class="fa fa-fw fa-id-card"></i> Vendors
+							</a>
+
+							<a class="dropdown-item" [routerLink]="['/parkinglot']">
+								<i class="fa fa-fw fa-map-marker"></i> Locations
+							</a>
+
+							<a class="dropdown-item" [routerLink]="['/parkinglot/store']">
+								<i class="fa fa-shopping-bag"></i> Store
+							</a>
+
+							<a class="dropdown-item" [routerLink]="['/transaction']">
+								<i class="fa fa-fw fa-money"></i> Transaction History
+							</a>
+
+							<a class="dropdown-item" [routerLink]="['/']">
+								<i class="fa fa-external-link"></i> Switch to Driving
+							</a>
+							
+							<a class="dropdown-item"  (click)="logUserOut()" [routerLink]="['/']">
+								<i class="fa fa-fw fa-power-off"></i> Log Out
+							</a>
+						</div>
+					</div>
+
+				</div>
+				
+			</div>
+			<button *ngIf="isAdmin" (click)="toggleSidebar()" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+		</div>
+	</nav>
+</header>

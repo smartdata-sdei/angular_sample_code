@@ -1,0 +1,7 @@
+<app-header></app-header>
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)"></app-sidebar>
+<section class="mainContainer topMargin" [ngClass]="isAdmin?{collapsed: collapedSideBar}:{collapsed2: collapedSideBar}">
+    <div class="container-fluid">
+        <router-outlet></router-outlet>
+    </div>
+</section>

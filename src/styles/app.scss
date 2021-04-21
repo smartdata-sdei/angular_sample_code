@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/bootstrap";
+@import "spinner";
+@import "utils";
+@import "rtl";
+@import "responsive";
+
+@media print {
+    .breadcrumb {
+        display: none !important;
+    }
+}
+
+.fa{
+    cursor: pointer;
+    margin-right: 6px;
+}
+
+.pointer{
+    cursor: pointer !important;
+}
+
+.no-pointer{
+    cursor: auto !important;
+}
+
+body{
+    font-size: 14px;
+}
+
+.error{
+    color: rgb(255, 0, 0);
+    transition: visibility 0s linear 0.33s, opacity 0.33s linear;
+    font-size: 12px;
+    padding-top: 4px;
+}
+
+.asterisk{
+    color: rgb(255, 0, 0);
+    font-size: 20px;
+    padding-top: 4px;
+    vertical-align: sub;
+}

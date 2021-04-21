@@ -1,0 +1,45 @@
+/* Reset CSS
+========================================================================== */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0; padding: 0; border: 0; font-size: 100%; vertical-align: baseline; }
+  
+  body { background: #ffffff; font-family: 'Poppins', sans-serif; color: #333333; font-size: 16px; line-height: 1; overflow-x: hidden; }
+  
+  /* Common CSS
+  ========================================================================== */
+  .parkingNearMe{ min-width: 201px; max-width: 201px; }
+
+  .wrapText{ word-break: break-all; }
+
+  textarea {
+    resize: none;
+  }
+ 
+  .btn-border{ background: transparent; border-color: #FFFFFF;  color: #fff; }
+  .btn-border:hover, .btn-border:focus{ background: #192121; border-color: #192121;color: #ffffff; }
+  
+  .bgDefault{ background: #14cccc; }
+  
+  .txtPrimary{ color: #d8215e; }
+  .txtSecondary{ color: #00c6b7; }
+  
+  .section{ margin-bottom: 2.5rem;}
+  .box-shadow { border-radius: 8px; box-shadow: 0px 8px 40px 0 rgba(0, 0, 0, 0.15); }
+  
+  .text-underline{ text-decoration: underline;}
+  
+  /*-------------------------------------------------------*/
+  /*  Header Navigation Css
+  /*-------------------------------------------------------*/
+  
+  .siteHeader{ position: absolute; width: 100%; left: 0; top: 0; z-index: 9; padding: 15px 0 0; }
+  .siteHeader .navbar{padding: .5rem 0rem;}
+  .siteHeader ul.navbar-nav li.nav-item { padding: 0 10px; }
+  .siteHeader ul.navbar-nav li.nav-item:last-child { padding: 0; }
+  .siteHeader ul.navbar-nav li a { font-weight: 300; color: #ffffff; font-weight: 500;   font-size: 14px; cursor: pointer; }
+  .siteHeader ul.navbar-nav li a.nav-link:hover { opacity: 1; border-radius: 15px; } 
+  .navbar-brand img{max-width: 190px; min-width: 190px;width: 100%;}
+  
+  @media all and (max-width:575px){
+    .navbar-brand img,.siteHeader.has-fixed .navbar-brand img{max-width: 150px;}
+  }

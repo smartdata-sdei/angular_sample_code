@@ -1,0 +1,78 @@
+<div [@routerTransition]>
+    <div class="main-container" *ngIf="isAdmin">
+        <h2 class="maintitle">Dashboard
+            <small>
+                <i class="fa fa-fw fa-refresh" aria-hidden="true"></i>
+                    <b class="pointer" (click)="createTokenForQuickBooks()">Update QBO token</b>
+                    <span *ngIf="isAuthTokenValid" class="msg"> (Token expiring on: {{tokenExpDate | date:'MMM dd yyyy , h:mm a'}})</span>
+                    <span *ngIf="!isAuthTokenValid" class="msg error"> (Token Refresh Required)</span>
+            </small>
+        </h2>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat [routerLink]="['/transaction']" class="pointer" [bgClass]="'danger'" [icon]="'fa fa-money'" [count]="transactions?.total || 0" [label]="'Transaction History'"></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat [routerLink]="['/user']" class="pointer" [bgClass]="'primary'" [icon]="'fa fa-users'" [count]="users?.total || 0" [label]="'Drivers'" ></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat [routerLink]="['/parkinglot']" class="pointer" [bgClass]="'success'" [icon]="'fa fa-map-marker'" [count]="parkingLots?.total || 0" [label]="'Locations'" ></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat [routerLink]="['/manager']" class="pointer" [bgClass]="'warning'" [icon]="'fa fa-user'" [count]="managers?.total || 0" [label]="'Hosts'" ></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat [routerLink]="['/patroller']" class="pointer" [bgClass]="'dark'" [icon]="'fa fa-users'" [count]="patrollers?.total || 0" [label]="'Patrollers'"></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat [routerLink]="['/violation']" class="pointer" [bgClass]="'dark'" [icon]="'fa fa-ticket'" [count]="violations?.total || 0" [label]="'Violation History'"></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat [routerLink]="['/parkinglot/store']" class="pointer" [bgClass]="'secondary'" [icon]="'fa fa-shopping-bag'" [label]="'Store'"></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat [routerLink]="['/wnine']" class="pointer" [bgClass]="'info'" [icon]="'fa fa-id-card'" [count]="wNines?.total || 0" [label]="'Vendors'"></app-stat>
+            </div>
+        </div>
+        <hr>
+    </div>
+    
+    <div class="container" *ngIf="isManager">
+        <h2 class="maintitle">Dashboard</h2>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat  [routerLink]="['/transaction']" class="pointer" [bgClass]="'danger'" [icon]="'fa fa-money'" [count]="transactions?.total || 0" [label]="'Transaction History'"></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <!-- <app-stat [routerLink]="['/violation']" class="pointer" [bgClass]="'dark'" [icon]="'fa fa-thermometer-three-quarters'" [count]="violations?.total || 0" [label]="'Violation History'"></app-stat> -->
+                <app-stat [routerLink]="['/violation']" class="pointer" [bgClass]="'dark'" [icon]="'fa fa-ticket'" [count]="violations?.total || 0" [label]="'Violation History'"></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat [routerLink]="['/parkinglot/store']" class="pointer" [bgClass]="'secondary'" [icon]="'fa fa-shopping-bag'" [label]="'Store'"></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat  [routerLink]="['/parkinglot']" class="pointer" [bgClass]="'success'" [icon]="'fa fa-map-marker'" [count]="parkingLots?.total || 0" [label]="'Locations'" ></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat [routerLink]="['/wnine']" class="pointer" [bgClass]="'info'" [icon]="'fa fa-id-card'" [count]="wNines?.total || 0" [label]="'Vendors'"></app-stat>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+    <div class="container" *ngIf="isPatroller">
+        <h2 class="maintitle">Dashboard</h2>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat  [routerLink]="['/transaction']" class="pointer" [bgClass]="'danger'" [icon]="'fa fa-money'" [label]="'Lot Management'"></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat [routerLink]="['/violation']" class="pointer" [bgClass]="'dark'" [icon]="'fa fa-ticket'" [label]="'Violation History'"></app-stat>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 card-mobile-style">
+                <app-stat  [routerLink]="['/parkinglot']" class="pointer" [bgClass]="'success'" [icon]="'fa fa-map-marker'" [count]="parkingLots?.total || ''" [label]="'View / Edit Relationships'" ></app-stat>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>

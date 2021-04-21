@@ -1,0 +1,191 @@
+<div *ngIf="!isPatroller">
+<!-- Banner -->
+<section class="banner innerBanner">
+  <div class="container">
+    <h1>Profile</h1>
+    </ol> -->
+  </div>
+</section>
+<!-- //Banner-->
+
+<!-- Page Content -->
+<section class="pageContent profile-sec-user">
+  <div class="container">
+    <div class="row align-items-center mb-1">
+      <div class="col-md-6">
+        <h1>My Profile</h1>
+      </div>
+      <div *ngIf="!isEdit" class="col-md-6 text-right">
+        <a (click)="editProfile()" class="btn btn-primary btn-sm">
+          <i class="fas fa-pencil-alt"></i>Edit profile
+        </a>
+      </div>
+    </div>
+
+    <div *ngIf="isEdit" class="row">
+      <div class="col-md-12 text-left">
+        <div class="row">
+          <div class="col col-md-6 col-sm-6 text-left">
+            <button (click)="viewProfile()" class="btn btn-default btn-sm btn-white">
+              <i class="fas fa-backward"></i> Back
+            </button>
+          </div>
+          <div class="col col-md-6 col-sm-6 text-right">
+            <button (click)="openChangePassword()" class="btn btn-primary btn-sm">
+              <i class="fas fa-lock"></i> Change password
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="m-3" id="profile">
+
+          <div class="row">
+            <div class="col-md-12">
+
+              <div *ngIf="!isEdit" class="profile-block">
+                <div class="profile-table">
+                  <h2>Basic Information</h2>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td> <span class="heading">First Name</span> <span class="data">{{ user?.firstName }}</span> </td>
+                        <td> <span class="heading">Last Name</span> <span class="data">{{ user?.lastName }}</span> </td>
+                        <td> <span class="heading">Email</span> <span class="data">{{ user?.email }}</span> </td>
+                        <td> <span class="heading">Mobile Number</span> <span class="data">{{ user?.countryCode }} {{ user?.mobileNumber }}</span> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div *ngIf="isEdit" class="edit-profile-block profile-block">
+                <form role="form" [formGroup]="editProfileForm" (ngSubmit)="onSubmit()" class="customForm">
+                  <h4>Basic Information</h4>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="">First Name</label>
+                        <input appAlphabetOnly (keypress)="constant.function.alphabetOnly($event)" maxlength="20" formControlName="firstName" type="text" class="form-control">
+                        <div *ngIf="submitted && f.firstName.errors" class="error">
+                          <span *ngIf="submitted && f.firstName.errors.required">{{constant.errorMessage.required}}</span>
+                          <span *ngIf="submitted && f.firstName.errors.pattern">{{constant.errorMessage.pattern}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="">Last Name</label>
+                        <input appAlphabetOnly (keypress)="constant.function.alphabetOnly($event)" maxlength="20" formControlName="lastName" type="text" class="form-control">
+                        <div *ngIf="submitted && f.lastName.errors" class="error">
+                          <span *ngIf="submitted && f.lastName.errors.required">{{constant.errorMessage.required}}</span>
+                          <span *ngIf="submitted && f.lastName.errors.pattern">{{constant.errorMessage.pattern}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="">Email</label>
+                        <input (input)="checkIfEmailAlreadyAvailable($event.target.value)" formControlName="email" maxlength="40" type="text" class="form-control">
+                        <div *ngIf="submitted && f.email.errors" class="error">
+                          <span *ngIf="submitted && f.email.errors.required">{{constant.errorMessage.required}}</span>
+                          <span *ngIf="submitted && f.email.errors.pattern">{{constant.errorMessage.pattern}}</span>
+                        </div>
+                        <div *ngIf="isEmailFound" class="error">
+                          <span>{{constant.errorMessage.emailIsTaken}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group adminMobile">
+                        <label for="">Mobile Number</label>
+                        <div class="relativePosition">
+                          <select formControlName="countryCode" class="countryDrop">
+                            <option *ngFor="let item of constant.countries" value="{{item.dial_code}}">{{item.dial_code}}</option>
+                          </select>
+                          <input (input)="typingMobileNumber($event.target.value)" maxlength="14" mask='(000) 000-0000' formControlName="mobileNumber" type="tel" class="form-control">
+                        </div>
+                        <div *ngIf="isError" class="error">
+                          <span>{{errorMessage}}</span>
+                        </div>
+                        <div *ngIf="submitted && f.mobileNumber.errors" class="error">
+                          <span *ngIf="submitted && f.mobileNumber.errors.required">{{constant.errorMessage.required}}</span>
+                          <span *ngIf="submitted && f.mobileNumber.errors.pattern">{{constant.errorMessage.pattern}}</span>
+                        </div>
+                      </div>
+                    </div>
+      
+                    <div class="col-sm-12 text-right">
+                      <div class="d-inline-flex align-items-center">
+                        <span *ngIf="disableSubmit && !isEmailFound" class="loaderSpan d-inline-flex align-items-center mr-3">
+                          <p-progressSpinner [style]="constant.progressSpinnerStyle" strokeWidth="4" fill="transparent" animationDuration=".9s"></p-progressSpinner>
+                        </span>
+                        <button *ngIf="!disableSubmit" type="submit" class="btn btn-primary">Save Changes</button>
+                        <button *ngIf="disableSubmit" type="button" class="btn btn-primary cursor-not-allowed" disabled>Save Changes</button>
+                      </div>
+                    </div>
+      
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- //Content Section -->
+</div>
+
+<p-dialog header="Change Password Here" [(visible)]="display" [draggable]="false" [modal]="true" [closable]="false" [responsive]="true" [style]="{width: '500px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000">
+  <form role="form" [formGroup]="changePasswordForm" (ngSubmit)="onSubmitChangePassword()">
+    <div class="form-content">
+      <div class="form-group">
+        <input appBlockCopyPaste maxlength="30" pInputText formControlName="currentPassword" type="password" class="form-control input-underline input-lg" placeholder="Current password">
+        <div *ngIf="submitted2 && fp.currentPassword.errors" class="error">
+          <span *ngIf="submitted2 && fp.currentPassword.errors.required">{{constant.errorMessage.required}}</span>
+          <span *ngIf="submitted2 && fp.currentPassword.errors.pattern">{{constant.errorMessage.pattern}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-content">
+      <div class="form-group">
+        <input appBlockCopyPaste maxlength="30" pInputText formControlName="newPassword" type="password" class="form-control input-underline input-lg" placeholder="New password">
+        <div *ngIf="submitted2 && fp.newPassword.errors" class="error">
+          <span *ngIf="submitted2 && fp.newPassword.errors.required">{{constant.errorMessage.required}}</span>
+          <span *ngIf="submitted2 && fp.newPassword.errors.pattern">{{constant.errorMessage.passwordPattern}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-content">
+      <div class="form-group">
+        <input appBlockCopyPaste maxlength="30" pInputText formControlName="confirmNewPassword" type="password" class="form-control input-underline input-lg" placeholder="Confirm new password">
+        <div *ngIf="submitted2 && fp.confirmNewPassword.errors" class="error">
+          <span *ngIf="submitted2 && fp.confirmNewPassword.errors.required">{{constant.errorMessage.required}}</span>
+          <span *ngIf="submitted2 && fp.confirmNewPassword.errors.pattern">{{constant.errorMessage.passwordPattern}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group text-center">
+      <span class="error" *ngIf="changePasswordForm.errors?.doesMatchPassword">{{constant.errorMessage.passwordDoesNotMatch}}</span>
+    </div>
+
+    <div class="text-center">
+      <button *ngIf="!disableSubmit" (click)="resetChangePasswordForm()" type="button" class="btn btn-default btn-white">Cancel</button>
+      <button *ngIf="disableSubmit" (click)="resetChangePasswordForm()" type="button" class="btn btn-default btn-white" disabled>Cancel</button>
+      &nbsp; &nbsp;
+      <button *ngIf="!disableSubmit" type="submit" class="btn btn-primary">Submit</button>
+      <button *ngIf="disableSubmit" type="button" class="btn btn-primary cursor-not-allowed" disabled>Submit</button>
+    </div>
+  </form>
+</p-dialog>
